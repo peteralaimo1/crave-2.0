@@ -1,0 +1,18 @@
+{
+  "name": "Crave \u2014 Food Discovery",
+  "short_name": "Crave",
+  "description": "Discover delicious meals, recipes, and nearby restaurants.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#17130f",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

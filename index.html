@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17130f">
+  <meta name="description" content="Crave helps you discover delicious meals, recipes, and nearby restaurants.">
+  <title>Crave — Good food. Great cravings.</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Crave home"><span class="brand-mark">✦</span> CRAVE</a>
+      <div class="top-actions">
+        <span class="free-pill">FREE TO USE</span>
+        <button id="installBtn" class="icon-btn install-btn" hidden>＋ Install</button>
+        <button id="profileBtn" class="avatar-btn" aria-label="Account options">G</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR DAILY FOOD INSPIRATION</p>
+          <h1>Good food.<br><em>Great cravings.</em></h1>
+          <p class="hero-sub">Find your next favorite bite — whether you're cooking at home or heading out.</p>
+          <button id="surpriseBtn" class="primary-btn">✧ Surprise me with a meal</button>
+        </div>
+        <div class="hero-photo" role="img" aria-label="A delicious spread of favorite foods">
+          <div class="photo-caption"><span>WHAT'S ON YOUR PLATE?</span><b>Something delicious.</b></div>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Main navigation">
+        <button class="tab active" data-view="discover">Discover</button>
+        <button class="tab" data-view="restaurants">Restaurants</button>
+        <button class="tab" data-view="recipes">Recipes</button>
+        <button class="tab" data-view="saved">Saved <span id="savedCount" class="count">0</span></button>
+      </nav>
+
+      <section id="discoverView" class="view active-view">
+        <div class="section-heading">
+          <div><p class="eyebrow">LET'S FIND YOUR CRAVING</p><h2>What sounds good today?</h2></div>
+          <span class="muted small" id="resultCount"></span>
+        </div>
+        <div class="filter-panel">
+          <div class="filter-label">Pick a mood</div>
+          <div id="moodFilters" class="chips">
+            <button class="chip selected" data-mood="All">Anything</button>
+            <button class="chip" data-mood="Comfort">Comfort food</button>
+            <button class="chip" data-mood="High protein">High protein</button>
+            <button class="chip" data-mood="Sweet">Sweet</button>
+            <button class="chip" data-mood="Savory">Savory</button>
+            <button class="chip" data-mood="Seafood">Seafood</button>
+            <button class="chip" data-mood="Mexican">Mexican</button>
+          </div>
+          <div class="filter-row">
+            <label>Meal
+              <select id="mealFilter"><option value="All">Any meal</option><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select>
+            </label>
+            <label>Budget
+              <select id="budgetFilter"><option value="All">Any budget</option><option value="$">Under $15</option><option value="$$">$15–$25</option><option value="$$$">$25+</option></select>
+            </label>
+            <label>Eating style
+              <select id="dietFilter"><option value="All">Anything</option><option value="High protein">High protein</option><option value="Vegetarian">Vegetarian</option><option value="Gluten-aware">Gluten-aware</option></select>
+            </label>
+          </div>
+        </div>
+        <div id="mealGrid" class="meal-grid"></div>
+      </section>
+
+      <section id="restaurantsView" class="view">
+        <div class="section-heading">
+          <div><p class="eyebrow">GOOD FOOD AROUND YOU</p><h2>Find a place to eat</h2><p class="muted">Search nearby restaurants using your location, or enter a city or ZIP code.</p></div>
+        </div>
+        <div class="search-panel">
+          <div class="search-line"><input id="locationInput" type="text" placeholder="City, neighborhood, or ZIP code" aria-label="Location"><button id="locateBtn" class="secondary-btn">◎ Use my location</button><button id="searchPlacesBtn" class="primary-btn">Find food</button></div>
+          <p class="tiny muted">Nearby place results are provided by OpenStreetMap contributors. Availability, menus, and prices may vary.</p>
+        </div>
+        <div id="restaurantStatus" class="status-note">Enter a location or use your device location to discover nearby restaurants.</div>
+        <div id="restaurantGrid" class="restaurant-grid"></div>
+      </section>
+
+      <section id="recipesView" class="view">
+        <div class="section-heading"><div><p class="eyebrow">MAKE SOMETHING DELICIOUS</p><h2>Recipes worth staying in for</h2><p class="muted">Simple inspiration with estimated nutrition and easy-to-follow steps.</p></div></div>
+        <div class="recipe-tools">
+          <input id="recipeSearch" type="search" placeholder="Search recipes or ingredients…" aria-label="Search recipes">
+          <select id="recipeGoal" aria-label="Recipe goal"><option value="All">All goals</option><option value="High protein">High protein</option><option value="Budget">Budget friendly</option><option value="Quick">Under 30 minutes</option></select>
+        </div>
+        <div id="recipeGrid" class="meal-grid"></div>
+      </section>
+
+      <section id="savedView" class="view">
+        <div class="section-heading"><div><p class="eyebrow">YOUR PERSONAL COLLECTION</p><h2>Saved cravings</h2><p class="muted">Your saved meals and recipes stay on this device.</p></div></div>
+        <div id="savedGrid" class="meal-grid"></div>
+      </section>
+    </main>
+
+    <footer><span class="brand small-brand"><span class="brand-mark">✦</span> CRAVE</span><span>Find something worth craving.</span><span class="tiny">Food imagery is illustrative. Nutrition and prices are estimates.</span></footer>
+  </div>
+
+  <dialog id="detailDialog" class="detail-dialog"><button class="dialog-close" data-close aria-label="Close">×</button><div id="detailContent"></div></dialog>
+  <dialog id="accountDialog" class="account-dialog"><button class="dialog-close" data-close aria-label="Close">×</button><div class="dialog-icon">✦</div><p class="eyebrow">YOUR CRAVE ACCOUNT</p><h2>Make Crave yours.</h2><p class="muted">You can use Crave without an account. Your favorites are currently saved on this device. Account sign-in and cross-device syncing can be added when you connect a backend.</p><button class="primary-btn full" data-close>Continue as guest</button></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
